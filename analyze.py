@@ -1198,10 +1198,16 @@ def build_html(s):
   thead th {{ font-size: 12px; color: var(--muted); font-weight: 600; }}
   table.heat td, table.heat th {{ text-align: center; min-width: 64px; }}
   table.heat th:first-child {{ text-align: left; }}
-  .chart-wrap {{ margin-top: 8px; }}
-  .chart-wrap .dl-btn {{
+  .panel-block {{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    min-width: 0;
+  }}
+  .panel-block > .panel {{ width: 100%; }}
+  .dl-btn {{
     display: inline-block;
-    margin-bottom: 8px;
     font-size: 12px;
     padding: 5px 10px;
     border: 1px solid var(--line);
@@ -1209,6 +1215,8 @@ def build_html(s):
     color: var(--ink);
     cursor: pointer;
   }}
+  .dl-btn:hover {{ background: #f8fafc; }}
+  .dl-btn:disabled {{ opacity: .6; cursor: wait; }}
   .chart-box {{
     position: relative;
     height: 280px;
@@ -1474,6 +1482,7 @@ def build_html(s):
 <footer>
   개인 식별 정보(이름, 전화, 계좌, 비밀번호, OAuth ID)는 포함하지 않았습니다. 프로그램 참여자 정의: 예약의 체크인 시각(checkInAt)이 있는 사용자. 신청은 취소·거절을 제외한 예약입니다.
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
 const PALETTE = {js(PALETTE)};
 const genderData = {js(s['gender'])};
@@ -1645,44 +1654,47 @@ doughnut('chartShopType', shopTypes);
   }});
 }})();
 
-const CHART_NAMES = {{
-  chartCouponStatus: '쿠폰-상태',
-  chartGender: '성별',
-  chartAge: '연령대',
-  chartWeekday: '쿠폰-사용-요일',
-  chartHour: '쿠폰-사용-시간대',
-  chartProgram: '프로그램별-참여-인원',
-  chartShopType: '상점-업종별-사용',
-  chartSignup: '일별-가입자',
-  chartCouponTime: '일별-쿠폰-발급-사용'
-}};
-function downloadChart(canvas, name) {{
-  const out = document.createElement('canvas');
-  out.width = canvas.width;
-  out.height = canvas.height;
-  const ctx = out.getContext('2d');
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0, 0, out.width, out.height);
-  ctx.drawImage(canvas, 0, 0);
-  const a = document.createElement('a');
-  a.download = '마곡-' + name + '.png';
-  a.href = out.toDataURL('image/png');
-  a.click();
+function fileName(title) {{
+  return (title || '카드').replace(/[\\\\/:*?"<>|]+/g, '').replace(/\\s+/g, '-');
 }}
-document.querySelectorAll('.chart-box').forEach((box) => {{
-  const canvas = box.querySelector('canvas');
-  if (!canvas) return;
+async function downloadPanel(panel, name, btn) {{
+  if (typeof html2canvas !== 'function') return;
+  btn.disabled = true;
+  const prev = btn.textContent;
+  btn.textContent = '저장 중';
+  try {{
+    const canvas = await html2canvas(panel, {{
+      backgroundColor: '#ffffff',
+      scale: 2,
+      logging: false,
+      useCORS: true
+    }});
+    const a = document.createElement('a');
+    a.download = '마곡-' + name + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }} finally {{
+    btn.disabled = false;
+    btn.textContent = prev;
+  }}
+}}
+document.querySelectorAll('.panel').forEach((panel) => {{
   const wrap = document.createElement('div');
-  wrap.className = 'chart-wrap';
-  box.parentNode.insertBefore(wrap, box);
+  wrap.className = 'panel-block';
+  if (panel.style.marginTop) {{
+    wrap.style.marginTop = panel.style.marginTop;
+    panel.style.marginTop = '';
+  }}
+  panel.parentNode.insertBefore(wrap, panel);
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'dl-btn';
   btn.textContent = '이미지 저장';
-  const name = CHART_NAMES[canvas.id] || canvas.id;
-  btn.addEventListener('click', () => downloadChart(canvas, name));
+  const title = panel.querySelector('h3');
+  const name = fileName(title ? title.textContent.trim() : '카드');
+  btn.addEventListener('click', () => downloadPanel(panel, name, btn));
   wrap.appendChild(btn);
-  wrap.appendChild(box);
+  wrap.appendChild(panel);
 }});
 </script>
 </body>
