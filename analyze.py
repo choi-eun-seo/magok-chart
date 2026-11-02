@@ -1070,7 +1070,6 @@ def build_html(s):
         for x in s["sessions"]
     ]
     company_table_rows = [[escape(x["label"]), num(x["count"])] for x in s["companyTop"]]
-    verif_rows = [[escape(k), num(v)] for k, v in s["verifications"]]
     ptype_rows = [
         [escape(k), num(n), num(u), f"{r}%"] for k, n, u, r in s["usersByPtype"]
     ]
@@ -1114,7 +1113,7 @@ def build_html(s):
 <style>
   :root {{
     --bg: #f4f1ea;
-    --paper: #fffdf8;
+    --paper: #ffffff;
     --ink: #1c1917;
     --muted: #57534e;
     --line: #e7e0d4;
@@ -1257,7 +1256,6 @@ def build_html(s):
   <a href="#cross">교차 비율</a>
   <a href="#program">프로그램</a>
   <a href="#shop">상점</a>
-  <a href="#ticket">관람권·영수증</a>
   <a href="#time">시간대별</a>
 </div></nav>
 <main>
@@ -1273,11 +1271,10 @@ def build_html(s):
     <div class="kpi"><div class="label">쿠폰 사용 인원</div><div class="value">{num(s['users']['couponUsedUsers'])}</div><div class="sub">전체의 {s['users']['couponUseRateOfAll']}% · 발급자 대비 {s['users']['couponUseRateOfIssued']}%</div></div>
     <div class="kpi"><div class="label">쿠폰 사용 건수</div><div class="value">{num(s['coupons']['used'])}</div><div class="sub">발급 {num(s['coupons']['issued'])}건 중 {s['coupons']['useRate']}%</div></div>
     <div class="kpi"><div class="label">사용 금액</div><div class="value">{num(s['coupons']['usedAmount'])}</div><div class="sub">원 · 발급액 {num(s['coupons']['issuedAmount'])}원</div></div>
-    <div class="kpi"><div class="label">관람권 사용</div><div class="value">{num(s['tickets']['used'])}</div><div class="sub">발급 {num(s['tickets']['issued'])}장 중 {s['tickets']['useRate']}%</div></div>
   </div>
   <div class="grid-2">
     <div class="panel">
-      <h3>프로그램이 쿠폰을 가르는가</h3>
+      <h3>프로그램 참여 별 쿠폰</h3>
       <div class="compare-pair">
         <div>
           <div class="label">참여자 쿠폰 사용률</div>
@@ -1285,12 +1282,12 @@ def build_html(s):
           <div class="sub">{num(s['overlap']['partUsed'])} / {num(s['users']['participants'])}명</div>
         </div>
         <div>
-          <div class="label">비참여자 쿠폰 사용률</div>
+          <div class="label">프로그램 비 참여자 (sns 이벤트 등) 쿠폰 사용률</div>
           <div class="value">{s['overlap']['nonPartUseRate']}%</div>
           <div class="sub">{num(s['overlap']['nonPartUsed'])} / {num(s['overlap']['nonPart'])}명</div>
         </div>
       </div>
-      <p class="insight">참여자가 비참여자보다 쿠폰을 <b>{s['overlap']['partLift']}배</b> 더 씁니다. 가입자의 {s['users']['participantRate']}%인 참여자가 쿠폰 사용 인원의 {s['overlap']['partShareOfUsedUsers']}%, 사용 건수의 {s['overlap']['partShareOfUsedCount']}%, 사용 금액의 {s['overlap']['partShareOfUsedAmount']}%를 만듭니다. 1인당 사용 건수는 참여자 {s['overlap']['partAvgUsed']}장, 비참여자 {s['overlap']['nonPartAvgUsed']}장입니다.</p>
+      <p class="insight">참여자가 프로그램 비 참여자(sns 이벤트 등)보다 쿠폰을 <b>{s['overlap']['partLift']}배</b> 더 씁니다. 가입자의 {s['users']['participantRate']}%인 참여자가 쿠폰 사용 인원의 {s['overlap']['partShareOfUsedUsers']}%, 사용 건수의 {s['overlap']['partShareOfUsedCount']}%, 사용 금액의 {s['overlap']['partShareOfUsedAmount']}%를 만듭니다. 1인당 사용 건수는 참여자 {s['overlap']['partAvgUsed']}장, 프로그램 비 참여자(sns 이벤트 등) {s['overlap']['nonPartAvgUsed']}장입니다.</p>
       <h3>전환</h3>
       <div class="funnel">
         <div class="funnel-step"><div>가입</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%"></div></div><div class="n">{num(s['users']['total'])}</div></div>
@@ -1305,7 +1302,7 @@ def build_html(s):
           ["직장인 쿠폰 사용", f"{num(s['overlap']['officeUsed'])} / {num(s['users']['office'])}", f"{s['overlap']['officeUseRate']}%"],
           ["비직장인 쿠폰 사용", f"{num(s['overlap']['nonOfficeUsed'])} / {num(s['overlap']['nonOffice'])}", f"{s['overlap']['nonOfficeUseRate']}%"],
           ["직장인·참여자 쿠폰 사용", f"{num(s['overlap']['officePartUsed'])} / {num(s['overlap']['officeAndPart'])}", f"{s['overlap']['officePartUseRate']}%"],
-          ["직장인·비참여자 쿠폰 사용", f"{num(s['overlap']['officeNonPartUsed'])} / {num(s['overlap']['officeNonPart'])}", f"{s['overlap']['officeNonPartUseRate']}%"],
+          ["직장인 · 프로그램 비 참여자 (sns 이벤트 등) 쿠폰 사용", f"{num(s['overlap']['officeNonPartUsed'])} / {num(s['overlap']['officeNonPart'])}", f"{s['overlap']['officeNonPartUseRate']}%"],
           ["쿠폰 사용 인원 중 참여자", f"{num(s['overlap']['partUsed'])} / {num(s['users']['couponUsedUsers'])}", f"{s['overlap']['partShareOfUsedUsers']}%"],
           ["쿠폰 사용 건수 중 참여자", f"{num(s['overlap']['partUsedCount'])} / {num(s['coupons']['used'])}", f"{s['overlap']['partShareOfUsedCount']}%"],
         ],
@@ -1457,19 +1454,6 @@ def build_html(s):
   <div class="panel" style="margin-top:16px">
     <h3>상점별 사용 건수</h3>
     {table(["상점", "사용 건", "비중"], shop_rows)}
-  </div>
-</section>
-
-<section id="ticket">
-  <h2>심야 영화관 관람권 · 영수증 인증</h2>
-  <p class="lead">관람권(Ticket)과 구매 인증(PurchaseVerification)입니다. 삭제된 건은 제외했습니다.</p>
-  <div class="kpis">
-    <div class="kpi"><div class="label">관람권 발급</div><div class="value">{num(s['tickets']['issued'])}</div><div class="sub">{num(s['tickets']['users'])}명</div></div>
-    <div class="kpi primary"><div class="label">관람권 사용</div><div class="value">{num(s['tickets']['used'])}</div><div class="sub">건수 대비 {s['tickets']['useRate']}% · 인원 대비 {s['tickets']['userUseRate']}%</div></div>
-  </div>
-  <div class="panel">
-    <h3>영수증 인증 상태</h3>
-    {table(["상태", "건수"], verif_rows)}
   </div>
 </section>
 

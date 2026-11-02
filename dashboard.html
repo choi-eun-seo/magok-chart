@@ -40,7 +40,7 @@
 <style>
   :root {
     --bg: #f4f1ea;
-    --paper: #fffdf8;
+    --paper: #ffffff;
     --ink: #1c1917;
     --muted: #57534e;
     --line: #e7e0d4;
@@ -174,7 +174,7 @@
 <body>
 <header>
   <h1>마곡 미술길 운영 데이터 대시보드</h1>
-  <p>데이터 기준 2026-11-02 · 관리자·삭제 계정 제외 · 집계값만 표시 · SQL 없이 이 파일만 열면 됩니다</p>
+  <p>데이터 기준 2026-11-02</p>
 </header>
 <nav><div class="inner">
   <a href="#overview">요약</a>
@@ -183,7 +183,6 @@
   <a href="#cross">교차 비율</a>
   <a href="#program">프로그램</a>
   <a href="#shop">상점</a>
-  <a href="#ticket">관람권·영수증</a>
   <a href="#time">시간대별</a>
 </div></nav>
 <main>
@@ -199,11 +198,10 @@
     <div class="kpi"><div class="label">쿠폰 사용 인원</div><div class="value">245</div><div class="sub">전체의 13.0% · 발급자 대비 69.4%</div></div>
     <div class="kpi"><div class="label">쿠폰 사용 건수</div><div class="value">472</div><div class="sub">발급 910건 중 51.9%</div></div>
     <div class="kpi"><div class="label">사용 금액</div><div class="value">2,360,000</div><div class="sub">원 · 발급액 4,550,000원</div></div>
-    <div class="kpi"><div class="label">관람권 사용</div><div class="value">147</div><div class="sub">발급 209장 중 70.3%</div></div>
   </div>
   <div class="grid-2">
     <div class="panel">
-      <h3>프로그램이 쿠폰을 가르는가</h3>
+      <h3>프로그램 참여 별 쿠폰</h3>
       <div class="compare-pair">
         <div>
           <div class="label">참여자 쿠폰 사용률</div>
@@ -211,12 +209,12 @@
           <div class="sub">89 / 227명</div>
         </div>
         <div>
-          <div class="label">비참여자 쿠폰 사용률</div>
+          <div class="label">프로그램 비 참여자 (sns 이벤트 등) 쿠폰 사용률</div>
           <div class="value">9.4%</div>
           <div class="sub">156 / 1,656명</div>
         </div>
       </div>
-      <p class="insight">참여자가 비참여자보다 쿠폰을 <b>4.2배</b> 더 씁니다. 가입자의 12.1%인 참여자가 쿠폰 사용 인원의 36.3%, 사용 건수의 42.2%, 사용 금액의 42.2%를 만듭니다. 1인당 사용 건수는 참여자 0.88장, 비참여자 0.16장입니다.</p>
+      <p class="insight">참여자가 프로그램 비 참여자(sns 이벤트 등)보다 쿠폰을 <b>4.2배</b> 더 씁니다. 가입자의 12.1%인 참여자가 쿠폰 사용 인원의 36.3%, 사용 건수의 42.2%, 사용 금액의 42.2%를 만듭니다. 1인당 사용 건수는 참여자 0.88장, 프로그램 비 참여자(sns 이벤트 등) 0.16장입니다.</p>
       <h3>전환</h3>
       <div class="funnel">
         <div class="funnel-step"><div>가입</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%"></div></div><div class="n">1,883</div></div>
@@ -225,7 +223,7 @@
         <div class="funnel-step"><div>참여 후 쿠폰</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:4.7%"></div></div><div class="n">89</div></div>
       </div>
       <p class="note">신청자 중 체크인 67.0% · 체크인한 사람 중 쿠폰 사용 39.2%</p>
-      <div class='table-wrap'><table><thead><tr><th>비교</th><th>인원</th><th>비율</th></tr></thead><tbody><tr><td>직장인 쿠폰 사용</td><td>166 / 1,321</td><td>12.6%</td></tr><tr><td>비직장인 쿠폰 사용</td><td>79 / 562</td><td>14.1%</td></tr><tr><td>직장인·참여자 쿠폰 사용</td><td>58 / 156</td><td>37.2%</td></tr><tr><td>직장인·비참여자 쿠폰 사용</td><td>108 / 1,165</td><td>9.3%</td></tr><tr><td>쿠폰 사용 인원 중 참여자</td><td>89 / 245</td><td>36.3%</td></tr><tr><td>쿠폰 사용 건수 중 참여자</td><td>199 / 472</td><td>42.2%</td></tr></tbody></table></div>
+      <div class='table-wrap'><table><thead><tr><th>비교</th><th>인원</th><th>비율</th></tr></thead><tbody><tr><td>직장인 쿠폰 사용</td><td>166 / 1,321</td><td>12.6%</td></tr><tr><td>비직장인 쿠폰 사용</td><td>79 / 562</td><td>14.1%</td></tr><tr><td>직장인·참여자 쿠폰 사용</td><td>58 / 156</td><td>37.2%</td></tr><tr><td>직장인 · 프로그램 비 참여자 (sns 이벤트 등) 쿠폰 사용</td><td>108 / 1,165</td><td>9.3%</td></tr><tr><td>쿠폰 사용 인원 중 참여자</td><td>89 / 245</td><td>36.3%</td></tr><tr><td>쿠폰 사용 건수 중 참여자</td><td>199 / 472</td><td>42.2%</td></tr></tbody></table></div>
       <p class="note">직장인 vs 비직장인 사용률은 비슷합니다(12.6% / 14.1%). 같은 직장인이라도 프로그램에 참여하면 쿠폰을 4.0배 더 씁니다.</p>
     </div>
     <div class="panel">
@@ -373,19 +371,6 @@
   <div class="panel" style="margin-top:16px">
     <h3>상점별 사용 건수</h3>
     <div class='table-wrap'><table><thead><tr><th>상점</th><th>사용 건</th><th>비중</th></tr></thead><tbody><tr><td>할리스코</td><td>24</td><td>5.1%</td></tr><tr><td>디디베이크하우스</td><td>22</td><td>4.7%</td></tr><tr><td>마곡동소담김밥</td><td>21</td><td>4.4%</td></tr><tr><td>압구정샌드위치 마곡역점</td><td>20</td><td>4.2%</td></tr><tr><td>클라리멘토스퀘어</td><td>19</td><td>4.0%</td></tr><tr><td>부대옥 마곡점</td><td>19</td><td>4.0%</td></tr><tr><td>카페 사색</td><td>18</td><td>3.8%</td></tr><tr><td>헤리스헤이스</td><td>18</td><td>3.8%</td></tr><tr><td>타치가와텐 마곡</td><td>17</td><td>3.6%</td></tr><tr><td>빽다방 마곡역GMG점</td><td>17</td><td>3.6%</td></tr><tr><td>순대실록 마곡역점</td><td>17</td><td>3.6%</td></tr><tr><td>커넥츠커피 마곡점</td><td>16</td><td>3.4%</td></tr><tr><td>삼덕통닭 마곡점</td><td>15</td><td>3.2%</td></tr><tr><td>본죽&amp;비빔밥cafe 마곡역점</td><td>13</td><td>2.8%</td></tr><tr><td>속초그바람에 마곡점</td><td>12</td><td>2.5%</td></tr><tr><td>비바나폴리</td><td>11</td><td>2.3%</td></tr><tr><td>라잇트 커피 로스터스</td><td>11</td><td>2.3%</td></tr><tr><td>마가렛</td><td>10</td><td>2.1%</td></tr><tr><td>센몬텐 마곡점</td><td>10</td><td>2.1%</td></tr><tr><td>와인그로브</td><td>9</td><td>1.9%</td></tr><tr><td>빙츄르 마곡점</td><td>9</td><td>1.9%</td></tr><tr><td>카츠륜</td><td>8</td><td>1.7%</td></tr><tr><td>어달스시</td><td>8</td><td>1.7%</td></tr><tr><td>산야 쭈꾸미</td><td>8</td><td>1.7%</td></tr><tr><td>영미당닭갈비</td><td>8</td><td>1.7%</td></tr><tr><td>스시풀 마곡역</td><td>7</td><td>1.5%</td></tr><tr><td>델리식스 마곡점</td><td>7</td><td>1.5%</td></tr><tr><td>하우슬리</td><td>7</td><td>1.5%</td></tr><tr><td>손정보쌈 마곡역점</td><td>6</td><td>1.3%</td></tr><tr><td>아우어루꼴라</td><td>6</td><td>1.3%</td></tr><tr><td>요쇼쿠 마곡점</td><td>6</td><td>1.3%</td></tr><tr><td>카페 아파시오나토</td><td>5</td><td>1.1%</td></tr><tr><td>양옥주점 마곡역점</td><td>5</td><td>1.1%</td></tr><tr><td>마곡 디프커피</td><td>5</td><td>1.1%</td></tr><tr><td>지원산시도삭면</td><td>5</td><td>1.1%</td></tr><tr><td>장두식숯불갈비</td><td>4</td><td>0.8%</td></tr><tr><td>포트캔커피 마곡점</td><td>4</td><td>0.8%</td></tr><tr><td>나이스카페인클럽 마곡중앙점</td><td>4</td><td>0.8%</td></tr><tr><td>앤덴커피</td><td>4</td><td>0.8%</td></tr><tr><td>인저리타임</td><td>4</td><td>0.8%</td></tr></tbody></table></div>
-  </div>
-</section>
-
-<section id="ticket">
-  <h2>심야 영화관 관람권 · 영수증 인증</h2>
-  <p class="lead">관람권(Ticket)과 구매 인증(PurchaseVerification)입니다. 삭제된 건은 제외했습니다.</p>
-  <div class="kpis">
-    <div class="kpi"><div class="label">관람권 발급</div><div class="value">209</div><div class="sub">190명</div></div>
-    <div class="kpi primary"><div class="label">관람권 사용</div><div class="value">147</div><div class="sub">건수 대비 70.3% · 인원 대비 73.2%</div></div>
-  </div>
-  <div class="panel">
-    <h3>영수증 인증 상태</h3>
-    <div class='table-wrap'><table><thead><tr><th>상태</th><th>건수</th></tr></thead><tbody><tr><td>approved</td><td>209</td></tr><tr><td>rejected</td><td>4</td></tr></tbody></table></div>
   </div>
 </section>
 
